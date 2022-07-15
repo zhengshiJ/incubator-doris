@@ -183,10 +183,13 @@ public class SingleNodePlanner {
         Database db = null;
         for (long dbId : dbIds) {
             Database tmpDb = Catalog.getCurrentCatalog().getInternalDataSource().getDbNullable(dbId);
-            if (tmpDb.getFullName().equalsIgnoreCase("tpch")) {
+            if (tmpDb.getFullName().equalsIgnoreCase("default_cluster:tpch")) {
                 db = tmpDb;
                 break;
             }
+        }
+        if (db == null || Catalog.getCurrentCatalog().getStatisticsManager().getStatistics() != null) {
+            return;
         }
         for (Table table : db.getTables()) {
             if (table.getName().equalsIgnoreCase("customer")) {
