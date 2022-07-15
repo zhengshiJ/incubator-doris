@@ -210,8 +210,7 @@ public class SlotDescriptor {
                 || Catalog.getCurrentCatalog()
                         .getStatisticsManager()
                         .getStatistics()
-                        .getColumnStats(parent.getTable().getId())
-                        .get(column.getName()) == null
+                        .getColumnStats(parent.getTable().getId()) == null
                 ? parent.getCardinality() :
                 Catalog.getCurrentCatalog()
                         .getStatisticsManager()
