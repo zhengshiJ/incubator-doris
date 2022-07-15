@@ -197,6 +197,34 @@ public class SingleNodePlanner {
                 long tableId = table.getId();
                 mockCustomer(tableId);
             }
+            if (table.getName().equalsIgnoreCase("part")) {
+                long tableId = table.getId();
+                mockPart(tableId);
+            }
+            if (table.getName().equalsIgnoreCase("orders")) {
+                long tableId = table.getId();
+                mockOrders(tableId);
+            }
+            if (table.getName().equalsIgnoreCase("lineitem")) {
+                long tableId = table.getId();
+                mockLineitem(tableId);
+            }
+            if (table.getName().equalsIgnoreCase("nation")) {
+                long tableId = table.getId();
+                mockNation(tableId);
+            }
+            if (table.getName().equalsIgnoreCase("supplier")) {
+                long tableId = table.getId();
+                mockSupplier(tableId);
+            }
+            if (table.getName().equalsIgnoreCase("region")) {
+                long tableId = table.getId();
+                mockRegion(tableId);
+            }
+            if (table.getName().equalsIgnoreCase("partsupp")) {
+                long tableId = table.getId();
+                mockPartSupp(tableId);
+            }
         }
     }
 
@@ -210,32 +238,273 @@ public class SingleNodePlanner {
         Map<StatsType, String> mktsegMentMap = new HashMap<>();
         Map<StatsType, String> commentMap = new HashMap<>();
         StatsType statsType = StatsType.NDV;
-        custKeyMap.put(statsType, "1500");
-        nameMap.put(statsType, "1500");
-        addressMap.put(statsType, "1500");
+        custKeyMap.put(statsType, "1500000");
+        nameMap.put(statsType, "1500000");
+        addressMap.put(statsType, "1500000");
         nationKeyMap.put(statsType, "25");
-        pHoneMap.put(statsType, "1500");
-        acctbalMap.put(statsType, "1499");
+        pHoneMap.put(statsType, "1499963");
+        acctbalMap.put(statsType, "818834");
         mktsegMentMap.put(statsType, "5");
-        commentMap.put(statsType, "1500");
+        commentMap.put(statsType, "1496636");
         Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
-                tableId, "C_CUSTKEY", Type.BIGINT, custKeyMap);
+                tableId, "C_CUSTKEY", Type.INT, custKeyMap);
         Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
                 tableId, "C_NAME", Type.VARCHAR, nameMap);
         Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
                 tableId, "C_ADDRESS", Type.VARCHAR, addressMap);
         Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
-                tableId, "C_NATIONKEY", Type.BIGINT, nationKeyMap);
+                tableId, "C_NATIONKEY", Type.INT, nationKeyMap);
         Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
-                tableId, "C_PHONE", Type.VARCHAR, pHoneMap);
+                tableId, "C_PHONE", Type.CHAR, pHoneMap);
         Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
-                tableId, "C_ACCTBAL", Type.DOUBLE, acctbalMap);
+                tableId, "C_ACCTBAL", Type.DECIMAL32, acctbalMap);
         Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
-                tableId, "C_MKTSEGMENT", Type.VARCHAR, mktsegMentMap);
+                tableId, "C_MKTSEGMENT", Type.CHAR, mktsegMentMap);
         Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
                 tableId, "C_COMMENT", Type.VARCHAR, commentMap);
     }
 
+    private void mockPart(long tableId) throws AnalysisException {
+        Map<StatsType, String> partkeyMap = new HashMap<>();
+        Map<StatsType, String> nameMap = new HashMap<>();
+        Map<StatsType, String> mfgrMap = new HashMap<>();
+        Map<StatsType, String> brandMap = new HashMap<>();
+        Map<StatsType, String> typeMap = new HashMap<>();
+        Map<StatsType, String> sizeMap = new HashMap<>();
+        Map<StatsType, String> containerMap = new HashMap<>();
+        Map<StatsType, String> retailpriceMap = new HashMap<>();
+        Map<StatsType, String> commentMap = new HashMap<>();
+        StatsType statsType = StatsType.NDV;
+        partkeyMap.put(statsType, "2000000");
+        nameMap.put(statsType, "1999828");
+        mfgrMap.put(statsType, "5");
+        brandMap.put(statsType, "25");
+        typeMap.put(statsType, "150");
+        sizeMap.put(statsType, "50");
+        containerMap.put(statsType, "40");
+        retailpriceMap.put(statsType, "31681");
+        commentMap.put(statsType, "806046");
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "P_PARTKEY", Type.INT, partkeyMap);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "P_NAME", Type.VARCHAR, nameMap);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "P_MFGR", Type.CHAR, mfgrMap);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "P_BRAND", Type.CHAR, brandMap);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "P_TYPE", Type.VARCHAR, typeMap);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "P_SIZE", Type.INT, sizeMap);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "P_CONTAINER", Type.CHAR, containerMap);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "P_RETAILPRICE", Type.DECIMAL32, retailpriceMap);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "P_COMMENT", Type.VARCHAR, commentMap);
+    }
+
+    private void mockOrders(long tableId) throws AnalysisException {
+        Map<StatsType, String> orderkey = new HashMap<>();
+        Map<StatsType, String> custkey = new HashMap<>();
+        Map<StatsType, String> orderstatus = new HashMap<>();
+        Map<StatsType, String> totalprice = new HashMap<>();
+        Map<StatsType, String> orderdate = new HashMap<>();
+        Map<StatsType, String> orderpriority = new HashMap<>();
+        Map<StatsType, String> clerk = new HashMap<>();
+        Map<StatsType, String> shippriority = new HashMap<>();
+        Map<StatsType, String> comment = new HashMap<>();
+        StatsType statsType = StatsType.NDV;
+        orderkey.put(statsType, "15000000");
+        custkey.put(statsType, "999982");
+        orderstatus.put(statsType, "3");
+        totalprice.put(statsType, "11944103");
+        orderdate.put(statsType, "2406");
+        orderpriority.put(statsType, "5");
+        clerk.put(statsType, "10000");
+        shippriority.put(statsType, "1");
+        comment.put(statsType, "14097230");
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "P_PARTKEY", Type.INT, orderkey);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "P_NAME", Type.INT, custkey);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "P_MFGR", Type.CHAR, orderstatus);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "P_BRAND", Type.DECIMAL32, totalprice);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "P_TYPE", Type.DATE, orderdate);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "P_SIZE", Type.CHAR, orderpriority);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "P_CONTAINER", Type.CHAR, clerk);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "P_RETAILPRICE", Type.INT, shippriority);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "P_COMMENT", Type.VARCHAR, comment);
+    }
+
+    private void mockLineitem(long tableId) throws AnalysisException {
+        Map<StatsType, String> orderkey = new HashMap<>();
+        Map<StatsType, String> partkey = new HashMap<>();
+        Map<StatsType, String> suppkey = new HashMap<>();
+        Map<StatsType, String> linenumber = new HashMap<>();
+        Map<StatsType, String> quantity = new HashMap<>();
+        Map<StatsType, String> extendedprice = new HashMap<>();
+        Map<StatsType, String> discount = new HashMap<>();
+        Map<StatsType, String> tax = new HashMap<>();
+        Map<StatsType, String> returnflag = new HashMap<>();
+        Map<StatsType, String> linestatus = new HashMap<>();
+        Map<StatsType, String> shipdate = new HashMap<>();
+        Map<StatsType, String> commitdate = new HashMap<>();
+        Map<StatsType, String> receiptdate = new HashMap<>();
+        Map<StatsType, String> shipinstruct = new HashMap<>();
+        Map<StatsType, String> shipmode = new HashMap<>();
+        Map<StatsType, String> comment = new HashMap<>();
+
+        StatsType statsType = StatsType.NDV;
+        orderkey.put(statsType, "15000000");
+        partkey.put(statsType, "2000000");
+        suppkey.put(statsType, "100000");
+        linenumber.put(statsType, "7");
+        quantity.put(statsType, "50");
+        extendedprice.put(statsType, "1351462");
+        discount.put(statsType, "11");
+        tax.put(statsType, "9");
+        returnflag.put(statsType, "3");
+        linestatus.put(statsType, "2");
+        shipdate.put(statsType, "2526");
+        commitdate.put(statsType, "2466");
+        receiptdate.put(statsType, "2555");
+        shipinstruct.put(statsType, "4");
+        shipmode.put(statsType, "7");
+        comment.put(statsType, "34378943");
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "L_ORDERKEY", Type.INT, orderkey);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "L_PARTKEY", Type.INT, partkey);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "L_SUPPKEY", Type.INT, suppkey);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "L_LINENUMBER", Type.INT, linenumber);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "L_QUANTITY", Type.DECIMAL32, quantity);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "L_EXTENDEDPRICE", Type.DECIMAL32, extendedprice);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "L_DISCOUNT", Type.DECIMAL32, discount);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "L_TAX", Type.DECIMAL32, tax);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "L_RETURNFLAG", Type.CHAR, returnflag);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "L_LINESTATUS", Type.CHAR, linenumber);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "L_SHIPDATE", Type.DATE, shipdate);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "L_COMMITDATE", Type.DATE, commitdate);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "L_RECEIPTDATE", Type.DATE, receiptdate);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "L_SHIPINSTRUCT", Type.CHAR, shipinstruct);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "L_SHIPMODE", Type.CHAR, shipmode);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "L_COMMENT", Type.VARCHAR, comment);
+    }
+
+    private void mockNation(long tableId) throws AnalysisException {
+        Map<StatsType, String> nationkey = new HashMap<>();
+        Map<StatsType, String> name = new HashMap<>();
+        Map<StatsType, String> regionkey = new HashMap<>();
+        Map<StatsType, String> comment = new HashMap<>();
+
+        StatsType statsType = StatsType.NDV;
+        nationkey.put(statsType, "25");
+        name.put(statsType, "25");
+        regionkey.put(statsType, "5");
+        comment.put(statsType, "25");
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "N_NATIONKEY", Type.INT, nationkey);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "N_NAME", Type.CHAR, name);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "N_REGIONKEY", Type.INT, regionkey);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "N_COMMENT", Type.VARCHAR, comment);
+    }
+
+    private void mockSupplier(long tableId) throws AnalysisException {
+        Map<StatsType, String> suppkey = new HashMap<>();
+        Map<StatsType, String> name = new HashMap<>();
+        Map<StatsType, String> address = new HashMap<>();
+        Map<StatsType, String> nationkey = new HashMap<>();
+        Map<StatsType, String> phone = new HashMap<>();
+        Map<StatsType, String> acctbal = new HashMap<>();
+        Map<StatsType, String> comment = new HashMap<>();
+        StatsType statsType = StatsType.NDV;
+        suppkey.put(statsType, "100000");
+        name.put(statsType, "100000");
+        address.put(statsType, "100000");
+        nationkey.put(statsType, "25");
+        phone.put(statsType, "100000");
+        acctbal.put(statsType, "95588");
+        comment.put(statsType, "99983");
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "S_SUPPKEY", Type.INT, suppkey);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "S_NAME", Type.VARCHAR, name);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "S_ADDRESS", Type.VARCHAR, address);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "S_NATIONKEY", Type.INT, nationkey);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "S_PHONE", Type.CHAR, phone);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "S_ACCTBAL", Type.DECIMAL32, acctbal);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "S_COMMENT", Type.CHAR, comment);
+    }
+
+    private void mockRegion(long tableId) throws AnalysisException {
+        Map<StatsType, String> regionkey = new HashMap<>();
+        Map<StatsType, String> name = new HashMap<>();
+        Map<StatsType, String> comment = new HashMap<>();
+        StatsType statsType = StatsType.NDV;
+        regionkey.put(statsType, "5");
+        name.put(statsType, "5");
+        comment.put(statsType, "5");
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "R_REGIONKEY", Type.INT, regionkey);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "R_NAME", Type.CHAR, name);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "R_COMMENT", Type.VARCHAR, comment);
+    }
+
+    private void mockPartSupp(long tableId) throws AnalysisException {
+        Map<StatsType, String> partkey = new HashMap<>();
+        Map<StatsType, String> suppkey = new HashMap<>();
+        Map<StatsType, String> availqty = new HashMap<>();
+        Map<StatsType, String> supplycost = new HashMap<>();
+        Map<StatsType, String> comment = new HashMap<>();
+        StatsType statsType = StatsType.NDV;
+        partkey.put(statsType, "2000000");
+        suppkey.put(statsType, "100000");
+        availqty.put(statsType, "9999");
+        supplycost.put(statsType, "99901");
+        comment.put(statsType, "7914164");
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "PS_PARTKEY", Type.INT, partkey);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "PS_SUPPKEY", Type.INT, suppkey);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "PS_AVAILQTY", Type.INT, availqty);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "PS_SUPPLYCOST", Type.DECIMAL32, supplycost);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "PS_COMMENT", Type.VARCHAR, comment);
+    }
     /**
      * Creates an EmptyNode that 'materializes' the tuples of the given stmt.
      * Marks all collection-typed slots referenced in stmt as non-materialized because
