@@ -325,23 +325,23 @@ public class SingleNodePlanner {
         shippriority.put(statsType, "1");
         comment.put(statsType, "14097230");
         Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
-                tableId, "P_PARTKEY", Type.INT, orderkey);
+                tableId, "O_ORDERKEY", Type.INT, orderkey);
         Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
-                tableId, "P_NAME", Type.INT, custkey);
+                tableId, "O_CUSTKEY", Type.INT, custkey);
         Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
-                tableId, "P_MFGR", Type.CHAR, orderstatus);
+                tableId, "O_ORDERSTATUS", Type.CHAR, orderstatus);
         Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
-                tableId, "P_BRAND", Type.DECIMAL32, totalprice);
+                tableId, "O_TOTALPRICE", Type.DECIMAL32, totalprice);
         Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
-                tableId, "P_TYPE", Type.DATE, orderdate);
+                tableId, "O_ORDERDATE", Type.DATE, orderdate);
         Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
-                tableId, "P_SIZE", Type.CHAR, orderpriority);
+                tableId, "O_ORDERPRIORITY", Type.CHAR, orderpriority);
         Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
-                tableId, "P_CONTAINER", Type.CHAR, clerk);
+                tableId, "O_CLERK", Type.CHAR, clerk);
         Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
-                tableId, "P_RETAILPRICE", Type.INT, shippriority);
+                tableId, "O_SHIPPRIORITY", Type.INT, shippriority);
         Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
-                tableId, "P_COMMENT", Type.VARCHAR, comment);
+                tableId, "O_COMMENT", Type.VARCHAR, comment);
     }
 
     private void mockLineitem(long tableId) throws AnalysisException {
@@ -505,6 +505,7 @@ public class SingleNodePlanner {
         Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
                 tableId, "PS_COMMENT", Type.VARCHAR, comment);
     }
+
     /**
      * Creates an EmptyNode that 'materializes' the tuples of the given stmt.
      * Marks all collection-typed slots referenced in stmt as non-materialized because
