@@ -176,4 +176,12 @@ public class ColumnStats {
                 throw new AnalysisException("Unsupported setting this type: " + type + " of min max value");
         }
     }
+
+    public long getNdv() {
+        return ndv;
+    }
+
+    public float getAvgSize() {
+        return avgSize;
+    }
 }

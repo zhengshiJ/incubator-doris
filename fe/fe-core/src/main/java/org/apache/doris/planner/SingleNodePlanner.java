@@ -53,17 +53,21 @@ import org.apache.doris.analysis.TupleId;
 import org.apache.doris.analysis.TupleIsNullPredicate;
 import org.apache.doris.catalog.AggregateFunction;
 import org.apache.doris.catalog.AggregateType;
+import org.apache.doris.catalog.Catalog;
 import org.apache.doris.catalog.Column;
+import org.apache.doris.catalog.Database;
 import org.apache.doris.catalog.FunctionSet;
 import org.apache.doris.catalog.MysqlTable;
 import org.apache.doris.catalog.OdbcTable;
 import org.apache.doris.catalog.Table;
+import org.apache.doris.catalog.Type;
 import org.apache.doris.common.AnalysisException;
 import org.apache.doris.common.FeConstants;
 import org.apache.doris.common.Pair;
 import org.apache.doris.common.Reference;
 import org.apache.doris.common.UserException;
 import org.apache.doris.planner.external.ExternalFileScanNode;
+import org.apache.doris.statistics.StatsType;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
@@ -165,10 +169,67 @@ public class SingleNodePlanner {
         if (LOG.isTraceEnabled()) {
             LOG.trace("desctbl: " + analyzer.getDescTbl().debugString());
         }
+        // just for test tpc-h statistic
+        mockTpchStatistic();
         PlanNode singleNodePlan = createQueryPlan(queryStmt, analyzer,
                 ctx.getQueryOptions().getDefaultOrderByLimit());
         Preconditions.checkNotNull(singleNodePlan);
         return singleNodePlan;
+    }
+
+    private void mockTpchStatistic() throws AnalysisException {
+        // 1. get db; just call tpch
+        List<Long> dbIds = Catalog.getCurrentCatalog().getInternalDataSource().getDbIds();
+        Database db = null;
+        for (long dbId : dbIds) {
+            Database tmpDb = Catalog.getCurrentCatalog().getInternalDataSource().getDbNullable(dbId);
+            if (tmpDb.getFullName().equalsIgnoreCase("tpch")) {
+                db = tmpDb;
+                break;
+            }
+        }
+        for (Table table : db.getTables()) {
+            if (table.getName().equalsIgnoreCase("customer")) {
+                long tableId = table.getId();
+                mockCustomer(tableId);
+            }
+        }
+    }
+
+    private void mockCustomer(Long tableId) throws AnalysisException {
+        Map<StatsType, String> custKeyMap = new HashMap<>();
+        Map<StatsType, String> nameMap = new HashMap<>();
+        Map<StatsType, String> addressMap = new HashMap<>();
+        Map<StatsType, String> nationKeyMap = new HashMap<>();
+        Map<StatsType, String> pHoneMap = new HashMap<>();
+        Map<StatsType, String> acctbalMap = new HashMap<>();
+        Map<StatsType, String> mktsegMentMap = new HashMap<>();
+        Map<StatsType, String> commentMap = new HashMap<>();
+        StatsType statsType = StatsType.NDV;
+        custKeyMap.put(statsType, "1500");
+        nameMap.put(statsType, "1500");
+        addressMap.put(statsType, "1500");
+        nationKeyMap.put(statsType, "25");
+        pHoneMap.put(statsType, "1500");
+        acctbalMap.put(statsType, "1499");
+        mktsegMentMap.put(statsType, "5");
+        commentMap.put(statsType, "1500");
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "C_CUSTKEY", Type.BIGINT, custKeyMap);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "C_NAME", Type.VARCHAR, nameMap);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "C_ADDRESS", Type.VARCHAR, addressMap);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "C_NATIONKEY", Type.BIGINT, nationKeyMap);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "C_PHONE", Type.VARCHAR, pHoneMap);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "C_ACCTBAL", Type.DOUBLE, acctbalMap);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "C_MKTSEGMENT", Type.VARCHAR, mktsegMentMap);
+        Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().updateColumnStats(
+                tableId, "C_COMMENT", Type.VARCHAR, commentMap);
     }
 
     /**

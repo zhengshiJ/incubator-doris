@@ -108,21 +108,19 @@ public class OlapScanStatsDerive extends BaseStatsDerive {
     public Pair<Long, Float> getNdvAndDataSizeFromStatistics(Pair<Long, String> pair) {
         long ndv = -1;
         float dataSize = -1;
-        /*
         if (Catalog.getCurrentCatalog()
                     .getStatisticsManager()
                     .getStatistics()
                     .getColumnStats(pair.first) != null) {
-                ndv = Catalog.getCurrentCatalog()
+            ndv = Catalog.getCurrentCatalog()
                         .getStatisticsManager()
                         .getStatistics()
                         .getColumnStats(pair.first).get(pair.second).getNdv();
-                dataSize = Catalog.getCurrentCatalog()
+            dataSize = Catalog.getCurrentCatalog()
                         .getStatisticsManager()
                         .getStatistics()
-                        .getColumnStats(pair.first).get(pair.second).getDataSize();
-         }
-         */
+                        .getColumnStats(pair.first).get(pair.second).getAvgSize();
+        }
         return new Pair<>(ndv, dataSize);
     }
 }
