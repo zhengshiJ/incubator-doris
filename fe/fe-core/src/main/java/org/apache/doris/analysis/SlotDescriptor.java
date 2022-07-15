@@ -20,6 +20,7 @@
 
 package org.apache.doris.analysis;
 
+import org.apache.doris.catalog.Catalog;
 import org.apache.doris.catalog.Column;
 import org.apache.doris.catalog.ColumnStats;
 import org.apache.doris.catalog.OlapTable;
@@ -203,7 +204,16 @@ public class SlotDescriptor {
             }
         }
         // FIXME(dhc): mock ndv
-        stats.setNumDistinctValues(parent.getCardinality());
+        if (parent == null) {
+            stats.setNumDistinctValues(parent.getCardinality());
+            return stats;
+        }
+        long tableId = parent.getTable().getId();
+        stats.setNumDistinctValues(
+                Catalog.getCurrentCatalog()
+                        .getStatisticsManager()
+                        .getStatistics()
+                        .getColumnStats(tableId).get(column.getName()).getNdv());
         return stats;
     }
 
