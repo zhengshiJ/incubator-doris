@@ -188,7 +188,8 @@ public class SingleNodePlanner {
                 break;
             }
         }
-        if (db == null || Catalog.getCurrentCatalog().getStatisticsManager().getStatistics() != null) {
+        if (db == null
+                || Catalog.getCurrentCatalog().getStatisticsManager().getStatistics().getIdToTableStats().size() != 0) {
             return;
         }
         for (Table table : db.getTables()) {

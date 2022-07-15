@@ -83,4 +83,8 @@ public class Statistics {
             tableStats.setRowCount(rowCount);
         }
     }
+
+    public Map<Long, TableStats> getIdToTableStats() {
+        return idToTableStats;
+    }
 }
