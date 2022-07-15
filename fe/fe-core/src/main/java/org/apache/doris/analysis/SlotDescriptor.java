@@ -204,16 +204,16 @@ public class SlotDescriptor {
             }
         }
         // FIXME(dhc): mock ndv
-        if (parent == null) {
-            stats.setNumDistinctValues(parent.getCardinality());
-            return stats;
-        }
-        long tableId = parent.getTable().getId();
-        stats.setNumDistinctValues(
+        // stats.setNumDistinctValues(parent.getCardinality());
+        // long tableId = parent.getTable().getId();
+        long ndv = parent.getTable() == null ? parent.getCardinality() :
                 Catalog.getCurrentCatalog()
                         .getStatisticsManager()
                         .getStatistics()
-                        .getColumnStats(tableId).get(column.getName()).getNdv());
+                        .getColumnStats(parent.getTable().getId())
+                        .get(column.getName())
+                        .getNdv();
+        stats.setNumDistinctValues(ndv);
         return stats;
     }
 
